@@ -43,8 +43,27 @@ match_participation_distribution = IntegerUniformDistribution(2, 30)
 name_generator = NameGenerator()
 
 players = num_players * [ None ]
+match_participation_total = 0
 for i in range(num_players):
-  players[i] = Player(name_generator.value(),
+  player = Player(name_generator.value(),
       match_participation_distribution.value())
-  print(players[i])
+  players[i] = player
+  match_participation_total += player.match_participation
 
+weighted_players = match_participation_total * [ None ]
+pos = 0
+for player in players:
+  for i in range(player.match_participation):
+    weighted_players[pos] = player
+    pos += 1
+
+def choose_match_player():
+  return random.choice(weighted_players)
+
+a = choose_match_player()
+while True:
+  b = choose_match_player()
+  if b != a:
+    break
+print(a)
+print(b)
