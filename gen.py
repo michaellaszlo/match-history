@@ -30,15 +30,26 @@ class NameGenerator:
       parts.append(part)
     return ' '.join(parts)
 
+
 class Player:
 
   def __init__(self, name, match_participation, skill_level):
     self.name = name
     self.match_participation = match_participation
     self.skill_level = skill_level
+    self.matches = []
+    self.defeated = {}
+    self.defeated_by = {}
 
   def __str__(self):
     return '[%s %d]' % (self.name, self.match_participation)
+
+
+class Match:
+
+  def __init__(self, winner, loser):
+    self.winner = winner
+    self.loser = loser
 
 
 def decide_outcome(a, b):
@@ -78,3 +89,8 @@ for i in range(num_matches):
   a, b = sorted([a, b], key=lambda player: player.name)
   winner, loser = decide_outcome(a, b)
   print('%s defeats %s' % (winner.name, loser.name))
+  match = Match(winner, loser)
+  for player in [winner, loser]:
+    player.matches.append(match)
+  winner.defeated.setdefault(loser, []).append(match)
+  loser.defeated_by.setdefault(winner, []).append(match)
