@@ -46,26 +46,35 @@ class Player:
     return '%s, eagerness %d, skill %d' % (self.name, self.eagerness,
         self.skill)
 
-  def dictionary(self):
+  def to_dict(self):
     d = {}
     d['name'] = self.name
     d['defeated'] = {}
     for opponent, matches in self.defeated.items():
-      d['defeated'][opponent.name] = [ str(match) for match in matches ]
+      d['defeated'][opponent.name] = [ match.to_dict() for match in matches ]
     d['defeated_by'] = {}
     for opponent, matches in self.defeated_by.items():
-      d['defeated'][opponent.name] = [ str(match) for match in matches ]
+      d['defeated'][opponent.name] = [ match.to_dict() for match in matches ]
     return d
 
 
 class Match:
 
-  def __init__(self, winner, loser):
+  def __init__(self, id, event_id, winner, loser):
+    self.id = id
+    self.event_id = event_id
     self.winner = winner
     self.loser = loser
 
   def __str__(self):
-    return '%s defeats %s' % (self.winner.name, self.loser.name)
+    return '%d, %d, %s defeats %s' % (id, event_id,
+        self.winner.name, self.loser.name)
+ 
+  def to_dict(self):
+    return {
+        'id': self.id, 'event_id': self.event_id,
+        'winner': str(self.winner), 'loser': str(self.loser)
+    }
 
 
 def decide_outcome(a, b):
@@ -104,19 +113,26 @@ for i in range(num_matches):
       break
   a, b = sorted([a, b], key=lambda player: player.name)
   winner, loser = decide_outcome(a, b)
-  match = Match(winner, loser)
+  match_id = i + 1 
+  event_id = (i % 3) + 1
+  match = Match(match_id, event_id, winner, loser)
   for player in [winner, loser]:
     player.matches.append(match)
   winner.defeated.setdefault(loser, []).append(match)
   loser.defeated_by.setdefault(winner, []).append(match)
 
-for player in sorted(players, key=lambda player: -player.skill):
-  print(str(player))
-  print('  defeated:')
-  for opponent, matches in player.defeated.items():
-    print('    %d times: %s' % (len(matches), opponent.name))
-  print('  defeated by:')
-  for opponent, matches in player.defeated_by.items():
-    print('    %d times: %s' % (len(matches), opponent.name))
-  print(json.dumps(player.dictionary()))
-  print('')
+sorted_players = sorted(players, key=lambda player: -player.skill)
+if False:
+  for player in sorted_players:
+    print(str(player))
+    print('  defeated:')
+    for opponent, matches in player.defeated.items():
+      print('    %d times: %s' % (len(matches), opponent.name))
+    print('  defeated by:')
+    for opponent, matches in player.defeated_by.items():
+      print('    %d times: %s' % (len(matches), opponent.name))
+    print('')
+else:
+  array = [ player.to_dict() for player in sorted_players ]
+  print(json.dumps(array))
+
