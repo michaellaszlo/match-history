@@ -1,5 +1,6 @@
 import random
 import string
+import json
 
 num_players = 5
 num_matches = 30
@@ -44,6 +45,17 @@ class Player:
   def __str__(self):
     return '%s, eagerness %d, skill %d' % (self.name, self.eagerness,
         self.skill)
+
+  def dictionary(self):
+    d = {}
+    d['name'] = self.name
+    d['defeated'] = {}
+    for opponent, matches in self.defeated.items():
+      d['defeated'][opponent.name] = [ str(match) for match in matches ]
+    d['defeated_by'] = {}
+    for opponent, matches in self.defeated_by.items():
+      d['defeated'][opponent.name] = [ str(match) for match in matches ]
+    return d
 
 
 class Match:
@@ -106,4 +118,5 @@ for player in sorted(players, key=lambda player: -player.skill):
   print('  defeated by:')
   for opponent, matches in player.defeated_by.items():
     print('    %d times: %s' % (len(matches), opponent.name))
+  print(json.dumps(player.dictionary()))
   print('')
