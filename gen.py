@@ -73,7 +73,7 @@ class Match:
   def to_dict(self):
     return {
         'id': self.id, 'event_id': self.event_id,
-        'winner': str(self.winner), 'loser': str(self.loser)
+        'winner': str(self.winner.name), 'loser': str(self.loser.name)
     }
 
 
@@ -134,5 +134,5 @@ if False:
     print('')
 else:
   array = [ player.to_dict() for player in sorted_players ]
-  print(json.dumps(array))
+  print('var players = %s;' % json.dumps(array, sort_keys=False, indent=2))
 
