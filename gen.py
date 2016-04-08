@@ -141,11 +141,11 @@ if False:
     print('')
 else:
   #with sys.stdout as out_file:
-  with open('data.js', 'w') as out_file:
-    out_file.write('League.players = %s;\n' % json.dumps(
+  with open('js/data.js', 'w') as out_file:
+    out_file.write('League.setPlayers(%s);\n' % json.dumps(
         [ player.to_dict() for player in players ],
         sort_keys=False, indent=2))
-    out_file.write('League.matches = %s;\n' % json.dumps(
+    out_file.write('League.setMatches(%s);\n' % json.dumps(
         [ match.to_dict() for match in matches ],
         sort_keys=False, indent=2))
 
