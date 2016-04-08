@@ -1,14 +1,29 @@
 var League = (function () {
-  var players,
-      matches,
+  var players = [],
+      playerLookup = {},
+      matches = [],
+      matchLookup = {},
       containers = {};
 
   function setPlayers(thesePlayers) {
     players = thesePlayers;
+    players.forEach(function (player) {
+      playerLookup[player.id] = player;
+      player.matches = [];
+      player.defeated = {};
+      player.defeatedBy = {};
+    });
   }
 
   function setMatches(theseMatches) {
     matches = theseMatches;
+    matches.forEach(function (match) {
+      var winner = playerLookup[match.winner_id],
+          loser = playerLookup[match.loser_id];
+      matchLookup[match.id] = match;
+      winner.matches.push(match);
+      loser.matches.push(match);
+    });
   }
 
   function load() {
