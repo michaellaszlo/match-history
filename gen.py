@@ -3,8 +3,8 @@ import random
 import string
 import json
 
-num_players = 5
-num_matches = 30
+num_players = 50
+num_matches = 3000
 
 
 class IntegerUniformDistribution:

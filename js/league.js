@@ -33,6 +33,14 @@ var League = (function () {
     containers.players = document.createElement('div');
     containers.players.id = 'players';
     containers.wrapper.appendChild(containers.players);
+    players.sort(function (a, b) {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name == b.name) {
+        return 0;
+      }
+      return 1;
+    });
     players.forEach(function (player) {
       var element = document.createElement('div');
       element.className = 'player';
