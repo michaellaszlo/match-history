@@ -38,6 +38,9 @@ var League = (function () {
     containers.players = document.createElement('div');
     containers.players.id = 'players';
     containers.wrapper.appendChild(containers.players);
+    containers.spotlight = document.createElement('div');
+    containers.spotlight.id = 'spotlight';
+    containers.wrapper.appendChild(containers.spotlight);
     players.sort(function (a, b) {
       if (a.name < b.name) {
         return -1;
