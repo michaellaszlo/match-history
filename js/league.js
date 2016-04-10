@@ -9,9 +9,7 @@ var League = (function () {
     players = thesePlayers;
     players.forEach(function (player) {
       playerLookup[player.id] = player;
-      player.matches = [];
-      player.defeated = {};
-      player.defeatedBy = {};
+      player.history = [];
       player.wins = player.losses = 0;
     });
   }
@@ -22,9 +20,13 @@ var League = (function () {
       var winner = playerLookup[match.winner_id],
           loser = playerLookup[match.loser_id];
       matchLookup[match.id] = match;
-      winner.matches.push(match);
+      winner.history.push({
+        result: 'W', opponent: loser, match: match
+      });
       winner.wins += 1;
-      loser.matches.push(match);
+      loser.history.push({
+        result: 'L', opponent: winner, match: match
+      });
       loser.losses += 1;
     });
   }
@@ -49,17 +51,9 @@ var League = (function () {
       container.className = 'player';
       container.innerHTML = player.name + ' ' +
           player.wins + '-' + player.losses + '<br>';
-      player.matches.forEach(function (match) {
-        var result,
-            opponent;
-        if (match.winner_id == player.id) {
-          result = 'W';
-          opponent = playerLookup[match.loser_id];
-        } else {
-          result = 'L';
-          opponent = playerLookup[match.winner_id];
-        }
-        container.innerHTML += result + ' ' + opponent.name + '<br>';
+      player.history.forEach(function (record) {
+        container.innerHTML += record.result + ' ' + record.opponent.name +
+            '<br>';
       });
       containers.players.appendChild(container);
     });
