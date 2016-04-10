@@ -4,7 +4,7 @@ import string
 import json
 
 num_players = 50
-num_matches = 3000
+num_matches = 300
 
 
 class IntegerUniformDistribution:
