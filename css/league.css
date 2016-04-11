@@ -21,15 +21,26 @@ body {
 
 #players {
 }
-.player {
+#players .player {
   margin: 5px 0;
   border: 1px solid #ccc;
   padding: 10px;
+  cursor: pointer;
 }
 
 #spotlight {
   margin: 5px 0;
-  padding: 10px;
+  padding-left: 20px;
+}
+#spotlight .player {
+  background: #333;
+  color: #fff;
+  padding: 10px 15px;
+}
+#spotlight .record {
   background: #eee;
-  height: 100%;
+  padding: 5px 15px;
+}
+#spotlight .match {
+  padding: 3px 0;
 }

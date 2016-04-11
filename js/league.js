@@ -33,7 +33,7 @@ var League = (function () {
 
   function make(tag, options) {
     var element = document.createElement(tag);
-    [ 'id', 'className' ].forEach(function (property) {
+    [ 'id', 'className', 'innerHTML' ].forEach(function (property) {
       if (property in options) {
         element[property] = options[property];
       }
@@ -44,6 +44,20 @@ var League = (function () {
     return element;
   }
 
+  function clickPlayer() {
+    var player = this.player,
+        spotlight = containers.spotlight;
+    spotlight.innerHTML = '';
+    make('div', { className: 'player', parent: spotlight,
+        innerHTML: player.name });
+    make('div', { className: 'record', parent: spotlight,
+        innerHTML: player.wins + '-' + player.losses + '<br>' });
+    player.history.forEach(function (match) {
+      make('div', { className: 'match', parent: spotlight,
+          innerHTML: match.result + ' ' + match.opponent.name })
+    });
+  }
+
   function load() {
     containers.wrapper = make('div', { id: 'wrapper',
         parent: document.body });
@@ -51,7 +65,6 @@ var League = (function () {
         parent: containers.wrapper });
     containers.spotlight = make('div', { id: 'spotlight',
         parent: containers.wrapper });
-    console.log(containers.spotlight);
     players.sort(function (a, b) {
       if (a.name < b.name) {
         return -1;
@@ -61,16 +74,15 @@ var League = (function () {
       return 1;
     });
     players.forEach(function (player) {
-      var container = document.createElement('div');
-      container.className = 'player';
-      container.innerHTML = player.name + ' ' +
-          player.wins + '-' + player.losses + '<br>';
-      player.history.forEach(function (record) {
-        container.innerHTML += record.result + ' ' + record.opponent.name +
-            '<br>';
-      });
-      containers.players.appendChild(container);
+      var element = make('div', { className: 'player',
+          innerHTML: player.name,
+          parent: containers.players });
+      player.element = element;
+      element.player = player;
+      element.onclick = clickPlayer;
+      containers.players.appendChild(element);
     });
+    players[Math.floor(Math.random() * players.length)].element.onclick();
   }
 
   return {
