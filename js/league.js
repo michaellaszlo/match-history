@@ -3,7 +3,8 @@ var League = (function () {
       playerLookup = {},
       matches = [],
       matchLookup = {},
-      containers = {};
+      containers = {},
+      activePlayer = null;
 
   function setPlayers(thesePlayers) {
     players = thesePlayers;
@@ -44,9 +45,34 @@ var League = (function () {
     return element;
   }
 
+  function addClass(element, name) {
+    if (element.className) {
+      element.className += ' ' + name;
+    } else {
+      element.className = name;
+    }
+  }
+
+  function removeClass(element, name) {
+    var names = element.className.split(/\s+/),
+        newNames = [],
+        i;
+    for (i = 0; i < names.length; ++i) {
+      if (names[i] !== name) {
+        newNames.push(names[i]);
+      }
+    }
+    element.className = newNames.join(' ');
+  }
+
   function clickPlayer() {
     var player = this.player,
         spotlight = containers.spotlight;
+    if (activePlayer !== null) {
+      removeClass(activePlayer.element, 'active');
+    }
+    activePlayer = player;
+    addClass(activePlayer.element, 'active');
     spotlight.innerHTML = '';
     make('div', { className: 'player', parent: spotlight,
         innerHTML: player.name });
@@ -82,7 +108,8 @@ var League = (function () {
       element.onclick = clickPlayer;
       containers.players.appendChild(element);
     });
-    players[Math.floor(Math.random() * players.length)].element.onclick();
+    //players[Math.floor(Math.random() * players.length)].element.onclick();
+    players[0].element.onclick();
   }
 
   return {
