@@ -31,16 +31,27 @@ var League = (function () {
     });
   }
 
+  function make(tag, options) {
+    var element = document.createElement(tag);
+    [ 'id', 'className' ].forEach(function (property) {
+      if (property in options) {
+        element[property] = options[property];
+      }
+    });
+    if ('parent' in options) {
+      options.parent.appendChild(element);
+    }
+    return element;
+  }
+
   function load() {
-    containers.wrapper = document.createElement('div');
-    containers.wrapper.id = 'wrapper';
-    document.body.appendChild(containers.wrapper);
-    containers.players = document.createElement('div');
-    containers.players.id = 'players';
-    containers.wrapper.appendChild(containers.players);
-    containers.spotlight = document.createElement('div');
-    containers.spotlight.id = 'spotlight';
-    containers.wrapper.appendChild(containers.spotlight);
+    containers.wrapper = make('div', { id: 'wrapper',
+        parent: document.body });
+    containers.players = make('div', { id: 'players',
+        parent: containers.wrapper });
+    containers.spotlight = make('div', { id: 'spotlight',
+        parent: containers.wrapper });
+    console.log(containers.spotlight);
     players.sort(function (a, b) {
       if (a.name < b.name) {
         return -1;

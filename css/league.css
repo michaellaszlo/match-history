@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -11,24 +12,24 @@ body {
 #wrapper {
   width: 80%;
   margin: 20px auto;
-  position: relative;
+}
+
+#players, #spotlight {
+  float: left;
+  width: 50%;
 }
 
 #players {
-  width: 50%;
-  position: absolute;
 }
 .player {
-  border: 1px solid #ddd;
   margin: 5px 0;
+  border: 1px solid #ccc;
   padding: 10px;
 }
 
 #spotlight {
-  width: 50%;
-  position: absolute;
-  margin-left: 50%;
-  margin-top: 5px;
-  height: 50px;
-  border: 2px solid #bbb;
+  margin: 5px 0;
+  padding: 10px;
+  background: #eee;
+  height: 100%;
 }
