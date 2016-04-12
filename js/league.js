@@ -79,8 +79,12 @@ var League = (function () {
     make('div', { className: 'record', parent: spotlight,
         innerHTML: player.wins + '-' + player.losses + '<br>' });
     player.history.forEach(function (match) {
-      make('div', { className: 'match', parent: spotlight,
-          innerHTML: match.result + ' ' + match.opponent.name })
+      var container = make('div', { className: 'match', parent: spotlight });
+      make('div', { parent: container,
+          className: 'result ' + (match.result == 'W' ? 'win' : 'loss'),
+          innerHTML: match.result });
+      make('div', { className: 'opponent', parent: container,
+          innerHTML: match.opponent.name });
     });
   }
 

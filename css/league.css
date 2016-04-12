@@ -43,7 +43,25 @@ body {
 #spotlight .record {
   background: #eee;
   padding: 5px 15px;
+  margin-bottom: 10px;
 }
 #spotlight .match {
-  padding: 3px 0;
+  margin-bottom: 10px;
+}
+#spotlight .match .result {
+  font-family: monospace;
+  font-size: 18px;
+  padding: 1px 6px 2px;
+  display: inline;
+  color: #fff;
+  margin-right: 5px;
+}
+#spotlight .match .result.win {
+  background: #333;
+}
+#spotlight .match .result.loss {
+  background: #a05454;
+}
+#spotlight .match .opponent {
+  display: inline;
 }
