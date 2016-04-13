@@ -85,6 +85,8 @@ var League = (function () {
           innerHTML: match.result });
       make('div', { className: 'opponent', parent: container,
           innerHTML: match.opponent.name });
+      container.player = match.opponent;
+      container.onclick = clickPlayer;
     });
   }
 

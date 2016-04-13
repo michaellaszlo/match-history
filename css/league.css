@@ -46,7 +46,15 @@ body {
   margin-bottom: 10px;
 }
 #spotlight .match {
-  margin-bottom: 10px;
+  margin-bottom: 7px;
+  padding: 1px 0 2px;
+  cursor: pointer;
+}
+#spotlight .match:hover {
+  background: #555;
+}
+#spotlight .match:hover .opponent {
+  color: #fff;
 }
 #spotlight .match .result {
   font-family: monospace;
@@ -54,13 +62,15 @@ body {
   padding: 1px 6px 2px;
   display: inline;
   color: #fff;
-  margin-right: 5px;
+  margin-right: 6px;
 }
 #spotlight .match .result.win {
-  background: #333;
+  color: #fff;
+  background: #173461;
 }
 #spotlight .match .result.loss {
-  background: #a05454;
+  color: #fff;
+  background: #be9a88;
 }
 #spotlight .match .opponent {
   display: inline;
