@@ -115,7 +115,7 @@ var League = (function () {
       containers.players.appendChild(element);
     });
     //players[Math.floor(Math.random() * players.length)].element.onclick();
-    //players[0].element.onclick();
+    players[0].element.onclick();
   }
 
   return {
