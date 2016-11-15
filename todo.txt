@@ -1,0 +1,10 @@
+
+- show summary stats for each player in left pane
+
+- make left pane jump to player when clicked in right pane
+
+- calculate Elo rating
+
+- load player histories from a real sport
+
+
