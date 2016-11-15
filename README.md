@@ -1,10 +1,16 @@
-**Web display of Elo ratings and other player statistics for any sport with two-player matches**
+# Match history
 
-Given a record of matches in some sport, this package produces a comparative display of any two players' histories. It
-displays the Elo rating of each player and the competitive history that the players have in common. Two degrees of
-separation will be shown.
+## A web interface for browsing a player's history of matches
 
-* first degree: player A's matches against player B
-* second degree: for each player C who has played against A and B, A's matches with C and B's matches with C
+This package generates a web page displaying a player's match history
+in a sport featuring two-player matches, such as tennis or chess.
 
-Users will be able to click on any player to go further into the competition graph.
+
+### Current features
+
+We randomly generate a set of player histories by running `gen.py`. The
+resulting player names and histories are written to `js/data.js`. The
+web page `index.html` displays a simple interface for browsing player
+histories.
+
+
