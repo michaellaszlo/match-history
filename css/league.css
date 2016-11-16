@@ -14,15 +14,18 @@ body {
 
 #players, #spotlight {
   padding: 10px;
+  width: 50%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #players {
   position: absolute;
-  width: 50%;
 }
 #players .player {
   margin-bottom: 10px;
   border: 1px solid #ccc;
+  border-radius: 3px;
   padding: 10px;
   cursor: pointer;
 }
@@ -33,7 +36,6 @@ body {
 #spotlight {
   position: absolute;
   left: 50%;
-  width: 50%;
 }
 #spotlight .player {
   background: #333;
