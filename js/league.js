@@ -32,6 +32,18 @@ var League = (function () {
     });
   }
 
+  function scrollIntoView(element, container) {
+    var scroll = document.body.scrollTop + container.scrollTop,
+        offset = M.getOffset(element, container).top;
+    if (offset < scroll || offset > scroll + container.offsetHeight) {
+      element.scrollIntoView();
+      return;
+    }
+    if (offset + element.offsetHeight > scroll + container.offsetHeight) {
+      element.scrollIntoView(false);
+    }
+  }
+
   function clickPlayer() {
     var player = this.player,
         spotlight = containers.spotlight;
@@ -40,11 +52,13 @@ var League = (function () {
     }
     activePlayer = player;
     M.classAdd(activePlayer.element, 'active');
+    scrollIntoView(activePlayer.element, containers.players);
     spotlight.innerHTML = '';
     M.make('div', { className: 'player', parent: spotlight,
         innerHTML: player.name });
     M.make('div', { className: 'record', parent: spotlight,
-        innerHTML: player.wins + '-' + player.losses + '<br>' });
+        innerHTML: player.wins + ' W ' +
+                   '&bull; ' + player.losses + ' L<br>' });
     player.history.forEach(function (match) {
       var container = M.make('div', { className: 'match', parent: spotlight });
       M.make('div', { parent: container,

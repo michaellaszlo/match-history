@@ -1,9 +1,9 @@
-
-- separate scrollable panes for player list and match history
++ separate scrollable panes for player list and match history
++ make left pane jump to player when clicked in right pane
 
 - show summary stats for each player in left pane
 
-- make left pane jump to player when clicked in right pane
+- add date and event name to each match
 
 - calculate Elo rating
 

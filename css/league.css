@@ -30,7 +30,9 @@ body {
   cursor: pointer;
 }
 #players .player.active {
-  background: #eee;
+  border-color: #333;
+  background: #333;
+  color: #fff;
 }
 
 #spotlight {
@@ -38,13 +40,12 @@ body {
   left: 50%;
 }
 #spotlight .player {
-  background: #333;
-  color: #fff;
-  padding: 10px 15px;
+  background: #eee;
+  padding: 10px 15px 0 15px;
 }
 #spotlight .record {
   background: #eee;
-  padding: 5px 15px;
+  padding: 10px 15px;
   margin-bottom: 10px;
 }
 #spotlight .match {
