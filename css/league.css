@@ -29,6 +29,11 @@ body {
   padding: 10px;
   cursor: pointer;
 }
+#players .player:hover {
+  border-color: #ddd;
+  background: #ddd;
+  color: #111;
+}
 #players .player.active {
   border-color: #333;
   background: #333;
@@ -54,10 +59,11 @@ body {
   cursor: pointer;
 }
 #spotlight .match:hover {
-  background: #555;
+  background: #ddd;
+  border-radius: 3px;
 }
-#spotlight .match:hover .opponent {
-  color: #fff;
+.match:hover .opponent, .match:hover .date {
+  color: #111;
 }
 #spotlight .match .result {
   font-family: 'Roboto Mono', monospace;
@@ -76,4 +82,12 @@ body {
 }
 #spotlight .match .opponent {
   display: inline;
+  padding-left: 10px;
+}
+
+.date {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+  display: inline-block;
+  padding: 0 15px;
 }

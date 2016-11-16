@@ -44,6 +44,19 @@ var League = (function () {
     }
   }
 
+  function formatDate(date) {
+    var y = '' + date.year,
+        m = '' + date.month,
+        d = '' + date.day;
+    if (m < 10) {
+      m = '0' + m;
+    }
+    if (d < 10) {
+      d = '0' + d;
+    }
+    return [ y, m, d ].join('.');
+  }
+
   function clickPlayer() {
     var player = this.player,
         spotlight = containers.spotlight;
@@ -61,6 +74,9 @@ var League = (function () {
                    '&bull; ' + player.losses + ' L<br>' });
     player.history.forEach(function (match) {
       var container = M.make('div', { className: 'match', parent: spotlight });
+      M.make('div', { parent: container,
+          className: 'date',
+          innerHTML: formatDate(match.match.date) });
       M.make('div', { parent: container,
           className: 'result ' + (match.result == 'W' ? 'win' : 'loss'),
           innerHTML: match.result });

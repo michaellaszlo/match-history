@@ -38,6 +38,7 @@ class NameGenerator:
       parts.append(part)
     return ' '.join(parts)
 
+
 player_lookup = {}
 
 class Player:
@@ -63,10 +64,22 @@ class Player:
     }
 
 
+class Date:
+
+  def __init__(self, year, month, day):
+    self.year = year
+    self.month = month
+    self.day = day
+
+  def to_tuple(self):
+      return (self.year, self.month, self.day)
+
+
 class Match:
 
-  def __init__(self, id, winner_id, loser_id):
+  def __init__(self, id, date, winner_id, loser_id):
     self.id = id
+    self.date = date
     self.winner_id = winner_id
     self.loser_id = loser_id
 
@@ -78,6 +91,11 @@ class Match:
   def to_dict(self):
     return {
         'id': self.id,
+        'date': {
+            'year': self.date.year,
+            'month': self.date.month,
+            'day': self.date.day
+        },
         'winner_id': self.winner_id,
         'loser_id': self.loser_id
     }
@@ -122,12 +140,15 @@ for i in range(num_matches):
   a, b = sorted([a, b], key=lambda player: player.name)
   winner, loser = decide_outcome(a, b)
   match_id = i + 1 
-  match = Match(match_id, winner.id, loser.id)
+  date = Date(random.randrange(2005, 2017), random.randrange(1, 13),
+          random.randrange(1, 31))
+  match = Match(match_id, date, winner.id, loser.id)
   matches[i] = match
   for player in [winner, loser]:
     player.matches.append(match)
   winner.defeated.setdefault(loser, []).append(match)
   loser.defeated_by.setdefault(winner, []).append(match)
+matches.sort(key=lambda match: match.date.to_tuple())
 
 if False:
   for player in players:
