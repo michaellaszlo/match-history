@@ -1,4 +1,6 @@
 
+- separate scrollable panes for player list and match history
+
 - show summary stats for each player in left pane
 
 - make left pane jump to player when clicked in right pane
